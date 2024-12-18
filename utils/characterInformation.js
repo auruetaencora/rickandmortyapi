@@ -26,26 +26,7 @@ const writeCharacters = (data) => {
   }
 };
 
-// const readDeleted = () => {
-//   try {
-//     const data = fs.readFileSync(deletedFilePath, "utf-8");
-//     return JSON.parse(data);
-//   } catch (error) {
-//     return { deleted: [], undos: [] };
-//   }
-// };
-
-// const writeDeleted = (data) => {
-//   try {
-//     fs.writeFileSync(deletedFilePath, JSON.stringify(data, null, 2));
-//   } catch (error) {
-//     throw new Error("Error al escribir en el archivo JSON");
-//   }
-// };
-
 module.exports = {
   readCharacters,
   writeCharacters,
-  // readDeleted,
-  // writeDeleted,
 };
