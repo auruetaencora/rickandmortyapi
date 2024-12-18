@@ -10,7 +10,6 @@ if (!BASE_URL) {
 
 const fetchData = async (arrayParam) => {
   try {
-    console.log("url is: ", BASE_URL);
     const response = await axios.get(
       `${BASE_URL}/${JSON.stringify(arrayParam)}`
     );

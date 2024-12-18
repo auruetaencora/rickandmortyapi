@@ -1,243 +1,239 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "API for managing characters from the Rick and Morty universe.",
-      "version": "1.0.0",
-      "title": "Rick and Morty Character Management API"
-    },
-    "host": "localhost:3000",
-    "basePath": "/api/character",
-    "schemes": ["http"],
-    "paths": {
-      "/get/{number}": {
-        "get": {
-          "summary": "Fetch and save a set number of characters",
-          "description": "Fetches a given number of characters from the external API and saves them to the local data store.",
-          "parameters": [
-            {
-              "name": "number",
-              "in": "path",
-              "description": "Number of characters to fetch (between 1 and 826)",
-              "required": true,
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 826
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Data fetched and saved successfully",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/Character"
-                    }
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Error fetching data from external API"
-            }
+  "swagger": "2.0",
+  "info": {
+    "description": "API for managing characters from the Rick and Morty universe.",
+    "version": "1.0.0",
+    "title": "Rick and Morty Character Management API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/character",
+  "schemes": ["http"],
+  "paths": {
+    "/get/{number}": {
+      "get": {
+        "summary": "Fetch and save a set number of characters",
+        "description": "Fetches a given number of characters from the external API and saves them to the local data store.",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "Number of characters to fetch (between 1 and 826)",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 826
           }
-        }
-      },
-      "/sort": {
-        "get": {
-          "summary": "Sort characters alphabetically by name",
-          "description": "Sorts the saved characters alphabetically by their name.",
-          "responses": {
-            "200": {
-              "description": "Data sorted successfully",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/Character"
-                    }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data fetched and saved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Character"
                   }
                 }
               }
-            },
-            "500": {
-              "description": "Error reading or sorting data"
             }
-          }
-        }
-      },
-      "/{id}": {
-        "delete": {
-          "summary": "Delete a character",
-          "description": "Deletes a character by setting its 'deleted' flag to true.",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of the character to delete",
-              "required": true,
-              "type": "integer",
-              "format": "int32"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Character marked as deleted",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Character not found"
-            },
-            "500": {
-              "description": "Error deleting character"
-            }
-          }
-        }
-      },
-      "/undo": {
-        "get": {
-          "summary": "Undo the last deletion",
-          "description": "Restores the last character deleted by changing its 'deleted' flag from true to false.",
-          "responses": {
-            "200": {
-              "description": "Character restored successfully",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "No characters to undo"
-            },
-            "500": {
-              "description": "Error undoing delete"
-            }
-          }
-        }
-      },
-      "/redo": {
-        "get": {
-          "summary": "Redo the last undone deletion",
-          "description": "Restores the last character undone by changing its 'deleted' flag from false to true.",
-          "responses": {
-            "200": {
-              "description": "Character re-deleted successfully",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "No characters to redo"
-            },
-            "500": {
-              "description": "Error redoing delete"
-            }
+          },
+          "500": {
+            "description": "Error fetching data from external API"
           }
         }
       }
     },
-    "definitions": {
-      "Character": {
-        "type": "object",
-        "properties": {
-          "id": {
+    "/sort": {
+      "get": {
+        "summary": "Sort characters alphabetically by name",
+        "description": "Sorts the saved characters alphabetically by their name.",
+        "responses": {
+          "200": {
+            "description": "Data sorted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Character"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error reading or sorting data"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "delete": {
+        "summary": "Delete a character",
+        "description": "Deletes a character by setting its 'deleted' flag to true.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the character to delete",
+            "required": true,
             "type": "integer",
-            "example": 1
-          },
-          "name": {
-            "type": "string",
-            "example": "Rick Sanchez"
-          },
-          "status": {
-            "type": "string",
-            "example": "Alive"
-          },
-          "species": {
-            "type": "string",
-            "example": "Human"
-          },
-          "gender": {
-            "type": "string",
-            "example": "Male"
-          },
-          "origin": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "Earth (C-137)"
-              },
-              "url": {
-                "type": "string",
-                "example": "https://rickandmortyapi.com/api/location/1"
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Character marked as deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
               }
             }
           },
-          "location": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "Citadel of Ricks"
+          "404": {
+            "description": "Character not found"
+          },
+          "500": {
+            "description": "Error deleting character"
+          }
+        }
+      }
+    },
+    "/alter": {
+      "post": {
+        "summary": "Undo or redo the last deletion",
+        "description": "Allows to either undo or redo the last operation related to a character deletion.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Specify the type of operation: 'undo' to restore a character, 'redo' to re-delete it.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["undo", "redo"],
+                  "example": "undo"
+                }
               },
-              "url": {
-                "type": "string",
-                "example": "https://rickandmortyapi.com/api/location/3"
+              "required": ["type"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation completed successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
               }
             }
           },
-          "image": {
-            "type": "string",
-            "example": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+          "404": {
+            "description": "No characters to undo/redo"
           },
-          "episode": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": "https://rickandmortyapi.com/api/episode/1"
-            }
+          "400": {
+            "description": "Invalid type provided"
           },
-          "url": {
-            "type": "string",
-            "example": "https://rickandmortyapi.com/api/character/1"
-          },
-          "created": {
-            "type": "string",
-            "example": "2017-11-04T18:48:46.250Z"
-          },
-          "deleted": {
-            "type": "boolean",
-            "example": false
+          "500": {
+            "description": "Error performing the operation"
           }
         }
       }
     }
+  },
+  "definitions": {
+    "Character": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Rick Sanchez"
+        },
+        "status": {
+          "type": "string",
+          "example": "Alive"
+        },
+        "species": {
+          "type": "string",
+          "example": "Human"
+        },
+        "gender": {
+          "type": "string",
+          "example": "Male"
+        },
+        "origin": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Earth (C-137)"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://rickandmortyapi.com/api/location/1"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Citadel of Ricks"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://rickandmortyapi.com/api/location/3"
+            }
+          }
+        },
+        "image": {
+          "type": "string",
+          "example": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+        },
+        "episode": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "https://rickandmortyapi.com/api/episode/1"
+          }
+        },
+        "url": {
+          "type": "string",
+          "example": "https://rickandmortyapi.com/api/character/1"
+        },
+        "created": {
+          "type": "string",
+          "example": "2017-11-04T18:48:46.250Z"
+        },
+        "deleted": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    }
   }
-  
+}

@@ -27,17 +27,16 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.get("/undo", async (req, res) => {
+router.post("/alter", async (req, res) => {
   try {
-    await characterController.undoDelete(req, res);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.get("/redo", async (req, res) => {
-  try {
-    await characterController.redoDelete(req, res);
+    const { type } = req.body;
+    if (type === "undo") {
+      await characterController.undoDelete(req, res);
+    } else if (type === "redo") {
+      await characterController.redoDelete(req, res);
+    } else {
+      res.status(400).json({ error: "Invalid type. Use 'undo' or 'redo'." });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
